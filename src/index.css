@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold-50: #fdfbf7;
+  --color-gold-100: #fdf6e6;
+  --color-gold-200: #fbe9c8;
+  --color-gold-300: #f8d39c;
+  --color-gold-400: #f4b761;
+  --color-gold-500: #ef952d;
+  --color-gold-600: #e0761d;
+  --color-gold-700: #ba581a;
+  --color-gold-800: #95451e;
+  --color-gold-900: #793b1b;
+  
+  --color-dark-900: #0a0a0a;
+  --color-dark-800: #141414;
+  --color-dark-700: #1f1f1f;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+}
+
+@layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+  body {
+    @apply font-sans antialiased bg-gold-50 text-dark-900 transition-colors duration-300;
+  }
+  
+  .dark body {
+    @apply bg-dark-900 text-gold-50;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gold-300 rounded-full;
+}
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-gold-700;
+}
