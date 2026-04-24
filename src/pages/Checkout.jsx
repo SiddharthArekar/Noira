@@ -135,7 +135,7 @@ export default function Checkout() {
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-serif text-dark-900 dark:text-white truncate">{item.product.name}</p>
                       <p className="text-xs text-gray-500 uppercase">Size: {item.selectedSize} | Qty: {item.quantity}</p>
-                      <p className="text-sm font-medium text-dark-900 dark:text-white mt-1">${(item.product.price * item.quantity).toLocaleString()}</p>
+                      <p className="text-sm font-medium text-dark-900 dark:text-white mt-1">₹{(item.product.price * item.quantity).toLocaleString()}</p>
                     </div>
                   </div>
                 ))}
@@ -144,15 +144,15 @@ export default function Checkout() {
               <div className="border-t border-gold-100 dark:border-dark-700 pt-4 space-y-4 mb-6 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>${cartTotal.toLocaleString()}</span>
+                  <span>₹{cartTotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping (Free)</span>
-                  <span>$0</span>
+                  <span>₹0</span>
                 </div>
                 <div className="flex justify-between text-lg font-serif text-dark-900 dark:text-white mt-4 pt-4 border-t border-gray-100 dark:border-dark-700">
                   <span>Total</span>
-                  <span>${cartTotal.toLocaleString()}</span>
+                  <span>₹{cartTotal.toLocaleString()}</span>
                 </div>
               </div>
 

@@ -3,12 +3,14 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getProductById, products } from '../data/products'
 import { useCart } from '../context/CartContext'
-import { ArrowLeft, Check } from 'lucide-react'
+import { ArrowLeft, Check, Heart } from 'lucide-react'
+import { useWishlist } from '../context/WishlistContext'
 
 export default function ProductDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { addToCart } = useCart()
+  const { toggleWishlist, isInWishlist } = useWishlist()
   const product = getProductById(id)
 
   const [isAdded, setIsAdded] = useState(false)
@@ -73,7 +75,7 @@ export default function ProductDetail() {
               {product.name}
             </h1>
             <p className="text-2xl font-light text-gray-700 dark:text-gray-300 mb-8">
-              ${product.price.toLocaleString()}
+              ₹{product.price.toLocaleString()}
             </p>
 
             <div className="prose prose-sm text-gray-600 dark:text-gray-400 mb-8 font-light leading-relaxed">
@@ -105,22 +107,36 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            <button 
-              onClick={handleAddToCart}
-              className={`w-full py-4 uppercase tracking-widest text-sm font-semibold transition-all duration-300 flex justify-center items-center ${
-                isAdded 
-                  ? 'bg-green-600 text-white' 
-                  : 'bg-dark-900 text-white hover:bg-gold-600 dark:bg-gold-50 dark:text-dark-900 dark:hover:bg-gold-400'
-              }`}
-            >
-              {isAdded ? (
-                <>
-                  <Check size={18} className="mr-2" /> Added to Cart
-                </>
-              ) : (
-                'Add to Cart'
-              )}
-            </button>
+            <div className="flex gap-4">
+              <button 
+                onClick={handleAddToCart}
+                className={`flex-1 py-4 uppercase tracking-widest text-sm font-semibold transition-all duration-300 flex justify-center items-center ${
+                  isAdded 
+                    ? 'bg-green-600 text-white' 
+                    : 'bg-dark-900 text-white hover:bg-gold-600 dark:bg-gold-50 dark:text-dark-900 dark:hover:bg-gold-400'
+                }`}
+              >
+                {isAdded ? (
+                  <>
+                    <Check size={18} className="mr-2" /> Added to Cart
+                  </>
+                ) : (
+                  'Add to Cart'
+                )}
+              </button>
+              
+              <button 
+                onClick={() => toggleWishlist(product)}
+                className={`w-14 flex items-center justify-center border transition-colors duration-300 ${
+                  isInWishlist(product.id) 
+                    ? 'border-red-500 text-red-500 bg-red-50 dark:bg-red-900/20' 
+                    : 'border-dark-900 text-dark-900 hover:bg-dark-50 dark:border-white dark:text-white dark:hover:bg-dark-800'
+                }`}
+                title="Add to Wishlist"
+              >
+                <Heart size={24} fill={isInWishlist(product.id) ? 'currentColor' : 'none'} />
+              </button>
+            </div>
           </motion.div>
         </div>
 
@@ -130,7 +146,13 @@ export default function ProductDetail() {
             <h2 className="text-2xl font-serif text-center text-dark-900 dark:text-white mb-12">You May Also Like</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
               {relatedProducts.map(p => (
-                <div key={p.id} className="group">
+                <div key={p.id} className="group relative">
+                  <button 
+                    onClick={(e) => { e.preventDefault(); toggleWishlist(p); }}
+                    className={`absolute top-4 right-4 z-20 p-2 rounded-full bg-white/80 backdrop-blur-sm dark:bg-dark-900/80 transition-colors ${isInWishlist(p.id) ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
+                  >
+                    <Heart size={18} fill={isInWishlist(p.id) ? 'currentColor' : 'none'} />
+                  </button>
                   <Link to={`/product/${p.id}`} className="block">
                     <div className="aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-dark-800 mb-4">
                       <img 
@@ -142,7 +164,7 @@ export default function ProductDetail() {
                     <h3 className="text-lg font-serif text-dark-900 dark:text-white mb-1 group-hover:text-gold-600 transition-colors">
                       {p.name}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">${p.price.toLocaleString()}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">₹{p.price.toLocaleString()}</p>
                   </Link>
                 </div>
               ))}

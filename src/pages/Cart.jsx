@@ -71,7 +71,7 @@ export default function Cart() {
                   </div>
                   
                   <div className="col-span-1 md:col-span-2 text-center hidden md:block text-gray-700 dark:text-gray-300">
-                    ${item.product.price.toLocaleString()}
+                    ₹{item.product.price.toLocaleString()}
                   </div>
 
                   <div className="col-span-1 md:col-span-2 flex justify-center mt-4 md:mt-0">
@@ -97,7 +97,7 @@ export default function Cart() {
 
                   <div className="col-span-1 md:col-span-2 text-right font-medium text-dark-900 dark:text-white flex justify-between md:block mt-4 md:mt-0">
                     <span className="md:hidden text-gray-500 uppercase text-xs tracking-widest">Total: </span>
-                    ${(item.product.price * item.quantity).toLocaleString()}
+                    ₹{(item.product.price * item.quantity).toLocaleString()}
                   </div>
                 </motion.div>
               ))}
@@ -114,7 +114,7 @@ export default function Cart() {
               <div className="space-y-4 mb-6 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>${cartTotal.toLocaleString()}</span>
+                  <span>₹{cartTotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Shipping</span>
@@ -129,7 +129,7 @@ export default function Cart() {
               <div className="border-t border-gold-100 dark:border-dark-700 pt-4 mb-8">
                 <div className="flex justify-between items-center text-lg font-serif text-dark-900 dark:text-white">
                   <span>Estimated Total</span>
-                  <span>${cartTotal.toLocaleString()}</span>
+                  <span>₹{cartTotal.toLocaleString()}</span>
                 </div>
               </div>
 

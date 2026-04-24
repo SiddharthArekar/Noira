@@ -1,7 +1,9 @@
 import { useState, useMemo } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Heart } from 'lucide-react'
 import { products } from '../data/products'
+import { useWishlist } from '../context/WishlistContext'
 
 export default function Shop() {
   const location = useLocation()
@@ -10,8 +12,9 @@ export default function Shop() {
 
   const [activeCategory, setActiveCategory] = useState(initialCategory)
   const [sortOption, setSortOption] = useState('Featured')
+  const { toggleWishlist, isInWishlist } = useWishlist()
 
-  const categories = ['All', 'Rings', 'Necklaces', 'Earrings', 'Bracelets']
+  const categories = ['All', 'Rings', 'Necklaces', 'Earrings', 'Bracelets', 'Watches']
 
   const filteredProducts = useMemo(() => {
     let filtered = products
@@ -106,8 +109,14 @@ export default function Shop() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4 }}
                   key={product.id}
-                  className="group"
+                  className="group relative"
                 >
+                  <button 
+                    onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
+                    className={`absolute top-4 right-4 z-20 p-2 rounded-full bg-white/80 backdrop-blur-sm dark:bg-dark-900/80 transition-colors ${isInWishlist(product.id) ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
+                  >
+                    <Heart size={18} fill={isInWishlist(product.id) ? 'currentColor' : 'none'} />
+                  </button>
                   <Link to={`/product/${product.id}`} className="block">
                     <div className="aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-dark-800 mb-4 relative">
                       <img 
@@ -125,7 +134,7 @@ export default function Shop() {
                     <h3 className="text-lg font-serif text-dark-900 dark:text-white mb-1 group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors">
                       {product.name}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">${product.price.toLocaleString()}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">₹{product.price.toLocaleString()}</p>
                   </Link>
                 </motion.div>
               ))}
