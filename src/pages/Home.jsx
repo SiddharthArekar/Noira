@@ -42,7 +42,7 @@ export default function Home() {
           className="relative z-10 text-center px-4 max-w-5xl mx-auto mt-24 sm:mt-20"
         >
           <span className="block text-gold-400 text-sm sm:text-base font-semibold tracking-[0.2em] uppercase mb-4 sm:mb-6">
-            The New Standard of Luxury Brand
+            The New Standard of Luxury
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-serif font-bold mb-6 sm:mb-8 tracking-wide leading-[1.1]">
             Elegance <br className="sm:hidden" /> Refined
