@@ -10,8 +10,8 @@ export default function Home() {
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       transition: { staggerChildren: 0.2 }
     }
   }
@@ -23,26 +23,26 @@ export default function Home() {
 
   return (
     <div className="bg-gold-50 dark:bg-dark-900 transition-colors duration-300">
-      
+
       {/* Modern Hero Section */}
       <section className="relative h-[85vh] sm:h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src="/images/hero_modern.png" 
-            alt="Luxury Jewelry Collection" 
+          <img
+            src="/images/hero_modern.png"
+            alt="Luxury Jewelry Collection"
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
         </div>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.3 }}
           className="relative z-10 text-center px-4 max-w-5xl mx-auto mt-24 sm:mt-20"
         >
           <span className="block text-gold-400 text-sm sm:text-base font-semibold tracking-[0.2em] uppercase mb-4 sm:mb-6">
-            The New Standard of Luxury
+            The New Standard of Luxury Brand
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-7xl text-white font-serif font-bold mb-6 sm:mb-8 tracking-wide leading-[1.1]">
             Elegance <br className="sm:hidden" /> Refined
@@ -51,14 +51,14 @@ export default function Home() {
             Discover our curated collection of fine jewelry. Artisan crafted pieces designed for the modern connoisseur, bringing timeless beauty to everyday life.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link 
-              to="/shop" 
+            <Link
+              to="/shop"
               className="w-full sm:w-auto inline-block bg-white text-dark-900 px-8 sm:px-10 py-4 font-semibold uppercase tracking-widest hover:bg-gold-50 transition-all duration-300 transform hover:-translate-y-1"
             >
               Shop Collection
             </Link>
-            <Link 
-              to="/about" 
+            <Link
+              to="/about"
               className="w-full sm:w-auto inline-block bg-transparent border border-white text-white px-8 sm:px-10 py-4 font-semibold uppercase tracking-widest hover:bg-white/10 transition-all duration-300"
             >
               Our Story
@@ -70,7 +70,7 @@ export default function Home() {
       {/* Featured Categories */}
       <section className="py-20 sm:py-32 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-20">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
             className="text-gold-600 dark:text-gold-400 text-sm font-semibold tracking-widest uppercase mb-3 block"
           >
@@ -91,7 +91,7 @@ export default function Home() {
             { name: 'Fine Gold', img: '/images/gold_hoops.png' },
             { name: 'Gifts', img: '/images/sapphire_ring.png' }
           ].map((cat, idx) => (
-            <motion.div 
+            <motion.div
               key={cat.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -100,9 +100,9 @@ export default function Home() {
               className="relative group overflow-hidden cursor-pointer"
             >
               <div className="aspect-square sm:aspect-[4/5] bg-gray-200 dark:bg-dark-800">
-                <img 
-                  src={cat.img} 
-                  alt={cat.name} 
+                <img
+                  src={cat.img}
+                  alt={cat.name}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
               </div>
@@ -142,7 +142,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -151,7 +151,7 @@ export default function Home() {
           >
             {featuredProducts.map((product) => (
               <motion.div variants={itemVariants} key={product.id} className="group cursor-pointer relative">
-                <button 
+                <button
                   onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
                   className={`absolute top-4 right-4 z-20 p-2 rounded-full bg-white/80 backdrop-blur-sm dark:bg-dark-900/80 transition-colors ${isInWishlist(product.id) ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
                 >
@@ -159,8 +159,8 @@ export default function Home() {
                 </button>
                 <Link to={`/product/${product.id}`} className="block">
                   <div className="aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-dark-700 mb-6 relative">
-                    <img 
-                      src={product.image} 
+                    <img
+                      src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-110"
                     />
@@ -176,7 +176,7 @@ export default function Home() {
               </motion.div>
             ))}
           </motion.div>
-          
+
           <div className="mt-12 text-center sm:hidden">
             <Link to="/shop" className="inline-block border border-dark-900 dark:border-white px-8 py-3 text-sm tracking-widest uppercase hover:bg-dark-900 hover:text-white dark:hover:bg-white dark:hover:text-dark-900 transition-colors dark:text-white">
               View All Pieces
