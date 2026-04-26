@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
 import { ShoppingBag, Menu, X, User, Sun, Moon, Heart } from 'lucide-react'
 import { useCart } from '../context/CartContext'
@@ -45,130 +46,127 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-gold-50/95 dark:bg-dark-900/95 backdrop-blur-md shadow-sm' : 'bg-gold-50 dark:bg-dark-900'
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
+      isScrolled 
+        ? 'bg-white/80 dark:bg-dark-900/80 backdrop-blur-2xl border-black/5 dark:border-white/10 py-3' 
+        : 'bg-transparent border-transparent py-5'
     }`}>
-      {/* Top Tier: Logo, Search, Icons */}
-      <div className="border-b border-gold-200 dark:border-dark-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            
-            {/* Mobile menu button */}
-            <div className="flex items-center lg:hidden">
-              <button onClick={() => setIsOpen(!isOpen)} className="text-dark-900 dark:text-gold-50">
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-
-            {/* Logo */}
-            <div className="flex-shrink-0 flex items-center justify-center lg:justify-start flex-1 lg:flex-none">
-              <Link to="/" className="text-3xl font-serif font-bold tracking-widest text-dark-900 dark:text-gold-50 transition-colors uppercase">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+        <div className="flex justify-between items-center gap-8">
+          
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link to="/" className="group flex items-center space-x-2">
+              <span className="text-2xl font-display font-black tracking-tighter text-dark-900 dark:text-white uppercase">
                 Noira
-              </Link>
-            </div>
-
-            {/* Desktop Search Bar */}
-            <div className="hidden lg:block flex-1 max-w-2xl mx-12">
-              <SearchBar />
-            </div>
-
-            {/* Icons */}
-            <div className="flex items-center space-x-4 md:space-x-6 text-dark-900 dark:text-gold-50 transition-colors">
-              <button onClick={toggleTheme} className="hover:text-gold-600 dark:hover:text-gold-400 transition-colors hidden sm:block">
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
-              
-              <Link to="/auth" className="hover:text-gold-600 dark:hover:text-gold-400 transition-colors hidden sm:block">
-                <User size={20} />
-              </Link>
-              
-              <Link to="/wishlist" className="relative hover:text-gold-600 dark:hover:text-gold-400 transition-colors hidden sm:block">
-                <Heart size={20} />
-                {wishlistCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-gold-600 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
-                    {wishlistCount}
-                  </span>
-                )}
-              </Link>
-              
-              <Link to="/cart" className="relative hover:text-gold-600 dark:hover:text-gold-400 transition-colors">
-                <ShoppingBag size={20} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-gold-600 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-            </div>
+              </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-gold-500 group-hover:scale-150 transition-transform"></span>
+            </Link>
           </div>
-        </div>
-      </div>
 
-      {/* Bottom Tier: Navigation Links (Desktop) */}
-      <div className={`hidden lg:block transition-all duration-300 ${isScrolled ? 'h-0 overflow-hidden opacity-0' : 'h-12 opacity-100 border-b border-gold-200 dark:border-dark-800'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-          <div className="flex justify-center space-x-10 items-center h-full">
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center space-x-10">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className={`text-sm uppercase tracking-widest transition-colors ${
+                className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold-500 relative group ${
                   location.pathname === link.path && !link.path.includes('?')
-                    ? 'text-gold-600 dark:text-gold-400 font-semibold' 
-                    : 'text-dark-700 hover:text-gold-600 dark:text-gray-300 dark:hover:text-gold-400'
+                    ? 'text-dark-900 dark:text-white' 
+                    : 'text-dark-500 dark:text-gray-400'
                 }`}
               >
                 {link.name}
+                <span className={`absolute -bottom-2 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full ${
+                  location.pathname === link.path && !link.path.includes('?') ? 'w-full' : ''
+                }`}></span>
               </Link>
             ))}
+          </div>
+
+          {/* Desktop Search Bar (Integrated) */}
+          <div className="hidden md:block flex-1 max-w-md">
+            <SearchBar />
+          </div>
+
+          {/* Icons */}
+          <div className="flex items-center space-x-2 sm:space-x-4 text-dark-900 dark:text-white">
+            <button 
+              onClick={toggleTheme} 
+              className="p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all active:scale-90"
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            
+            <Link to="/auth" className="hidden sm:block p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all">
+              <User size={18} />
+            </Link>
+            
+            <Link to="/wishlist" className="relative p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all">
+              <Heart size={18} />
+              {wishlistCount > 0 && (
+                <span className="absolute top-2 right-2 bg-gold-500 text-white text-[9px] font-black rounded-full h-3.5 w-3.5 flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
+            
+            <Link to="/cart" className="relative group flex items-center space-x-2 bg-dark-900 dark:bg-white text-white dark:text-dark-900 px-4 py-2 rounded-xl transition-all hover:shadow-lg hover:shadow-gold-500/20 active:scale-95">
+              <ShoppingBag size={18} />
+              <span className="text-xs font-bold">{cartCount}</span>
+            </Link>
+
+            {/* Mobile menu button */}
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              className="lg:hidden p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all"
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="lg:hidden bg-gold-50 dark:bg-dark-900 absolute w-full shadow-lg border-b border-gold-200 dark:border-dark-800">
-          <div className="px-4 py-4 border-b border-gold-200 dark:border-dark-800">
-             <SearchBar />
-          </div>
-          <div className="px-4 pt-2 pb-6 space-y-1">
-            {navLinks.map((link) => (
+      <motion.div 
+        initial={false}
+        animate={{ height: isOpen ? 'calc(100vh - 80px)' : 0, opacity: isOpen ? 1 : 0 }}
+        className="lg:hidden fixed top-[80px] left-0 right-0 overflow-y-auto bg-white dark:bg-dark-900 border-t border-black/5 dark:border-white/5 z-40"
+      >
+        <div className="px-8 py-12 space-y-8">
+           <div className="mb-12">
+              <SearchBar />
+           </div>
+          {navLinks.map((link, idx) => (
+            <motion.div
+              key={link.name}
+              initial={{ x: -20, opacity: 0 }}
+              animate={isOpen ? { x: 0, opacity: 1 } : {}}
+              transition={{ delay: idx * 0.1 }}
+            >
               <Link
-                key={link.name}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className="block px-3 py-3 text-base uppercase tracking-widest text-dark-900 dark:text-gold-50 hover:bg-gold-100 dark:hover:bg-dark-800 transition-colors"
+                className="block text-4xl font-display font-black uppercase tracking-tighter text-dark-900 dark:text-white hover:text-gold-500 transition-colors"
               >
                 {link.name}
               </Link>
-            ))}
-            
-            <Link to="/auth" onClick={() => setIsOpen(false)} className="flex items-center justify-between px-3 py-3 mt-2 border-t border-gold-200 dark:border-dark-800">
-              <div className="flex items-center space-x-2 text-dark-900 dark:text-gold-50 uppercase tracking-widest text-base">
-                <User size={20} />
-                <span>Sign In / Account</span>
-              </div>
+            </motion.div>
+          ))}
+          
+          <div className="pt-12 mt-12 border-t border-black/5 dark:border-white/5 flex flex-col space-y-6">
+            <Link to="/auth" onClick={() => setIsOpen(false)} className="flex items-center space-x-4 text-lg font-bold uppercase tracking-widest text-dark-500">
+              <User size={24} />
+              <span>Your Account</span>
             </Link>
-            <Link to="/wishlist" onClick={() => setIsOpen(false)} className="flex items-center justify-between px-3 py-3 mt-2 border-t border-gold-200 dark:border-dark-800">
-              <div className="flex items-center space-x-2 text-dark-900 dark:text-gold-50 uppercase tracking-widest text-base">
-                <Heart size={20} />
-                <span>Wishlist</span>
-              </div>
-              {wishlistCount > 0 && (
-                <span className="bg-gold-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {wishlistCount}
-                </span>
-              )}
+            <Link to="/wishlist" onClick={() => setIsOpen(false)} className="flex items-center space-x-4 text-lg font-bold uppercase tracking-widest text-dark-500">
+              <Heart size={24} />
+              <span>Wishlist ({wishlistCount})</span>
             </Link>
-            <div className="flex items-center justify-between px-3 py-3 mt-2 border-t border-gold-200 dark:border-dark-800">
-              <span className="text-dark-900 dark:text-gold-50 uppercase tracking-widest text-base">Theme</span>
-              <button onClick={toggleTheme} className="text-dark-900 dark:text-gold-50">
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
-            </div>
           </div>
         </div>
-      )}
+      </motion.div>
     </nav>
   )
 }
