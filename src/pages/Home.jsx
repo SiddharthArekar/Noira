@@ -119,11 +119,14 @@ export default function Home() {
             </motion.div>
 
             <motion.div 
-              animate={{ y: [0, 20, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-6 -right-6 px-6 py-3 bg-white text-dark-900 font-display font-bold rounded-full shadow-xl -rotate-6"
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute bottom-6 right-6 px-5 py-2.5 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-display font-bold rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.3)] -rotate-3 hover:rotate-0 transition-transform cursor-pointer"
             >
-              NEW ARRIVAL ✨
+              <span className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-gold-400 animate-pulse"></span>
+                NEW ARRIVAL ✨
+              </span>
             </motion.div>
           </motion.div>
         </div>

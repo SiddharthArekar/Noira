@@ -538,6 +538,96 @@ export const products = [
     "image": "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&q=80&w=800",
     "description": "The Titanium Explorer represents the pinnacle of Noira's design collection. Meticulously crafted for those who appreciate true luxury.",
     "material": "18k Gold"
+  },
+  {
+    "id": "col-glow-1",
+    "name": "Glow in Motion Ring",
+    "price": 350000,
+    "category": "Rings",
+    "collection": "Glow-in-Motion",
+    "image": "https://images.unsplash.com/photo-1605100804763-247f67b454bf?auto=format&fit=crop&q=80&w=800",
+    "description": "Part of the Exclusive Glow in Motion collection. Designed to capture light brilliantly.",
+    "material": "18k Gold"
+  },
+  {
+    "id": "col-shakti-1",
+    "name": "Shakti Gold Bangle",
+    "price": 420000,
+    "category": "Bracelets",
+    "collection": "Shakti-Collection",
+    "image": "https://images.unsplash.com/photo-1611085583191-a3b181a8c9a4?auto=format&fit=crop&q=80&w=800",
+    "description": "Part of the Exclusive Shakti Collection. Empowering designs for the modern woman.",
+    "material": "22k Gold"
+  },
+  {
+    "id": "col-gem-1",
+    "name": "Emerald Gemstone Necklace",
+    "price": 580000,
+    "category": "Necklaces",
+    "collection": "Gemstone-Collection",
+    "image": "https://images.unsplash.com/photo-1599643477877-537ef5278189?auto=format&fit=crop&q=80&w=800",
+    "description": "Part of the Exclusive Gemstone Collection. Featuring rare and vibrant stones.",
+    "material": "Platinum"
+  },
+  {
+    "id": "col-piercing-1",
+    "name": "Diamond Helix Piercing",
+    "price": 120000,
+    "category": "Earrings",
+    "collection": "Piercing-Collection",
+    "image": "https://images.unsplash.com/photo-1535632063921-8fd73873ff7f?auto=format&fit=crop&q=80&w=800",
+    "description": "Part of the Exclusive Piercing Collection. Dainty, sharp, and luxurious.",
+    "material": "18k White Gold"
+  },
+  {
+    "id": "col-diva-1",
+    "name": "Diva Statement Earrings",
+    "price": 650000,
+    "category": "Earrings",
+    "collection": "DIVA-Collection",
+    "image": "https://images.unsplash.com/photo-1630019852942-f89202989a57?auto=format&fit=crop&q=80&w=800",
+    "description": "Part of the Exclusive DIVA Collection. Bold statements for glamorous nights.",
+    "material": "18k Rose Gold"
+  },
+  {
+    "id": "col-cherry-1",
+    "name": "Cherry Pop Ruby Ring",
+    "price": 280000,
+    "category": "Rings",
+    "collection": "Cherry-Pop-Collection",
+    "image": "https://images.unsplash.com/photo-1599643478524-fb66fa5320e5?auto=format&fit=crop&q=80&w=800",
+    "description": "Part of the Exclusive Cherry Pop Collection. Vibrant rubies that pop.",
+    "material": "18k Gold"
+  },
+  {
+    "id": "col-sky-1",
+    "name": "Sky High Sapphire Pendant",
+    "price": 310000,
+    "category": "Necklaces",
+    "collection": "Sky-High",
+    "image": "https://images.unsplash.com/photo-1601121141158-a43fc3309a47?auto=format&fit=crop&q=80&w=800",
+    "description": "Part of the Exclusive Sky High collection. Elevated designs with deep blue sapphires.",
+    "material": "Platinum"
+  },
+  {
+    "id": "col-stack-1",
+    "name": "Stackable Gold Rings Set",
+    "price": 190000,
+    "category": "Rings",
+    "collection": "Stackable-Collection",
+    "image": "https://images.unsplash.com/photo-1588444837495-c6cfaf50c821?auto=format&fit=crop&q=80&w=800",
+    "description": "Part of the Exclusive Stackable Collection. Mix, match, and stack your style.",
+    "material": "14k Gold"
+  },
+  {
+    "id": "col-arrived-1",
+    "name": "Modern Platinum Watch",
+    "price": 890000,
+    "category": "Watches",
+    "collection": "Just-Arrived",
+    "image": "https://images.unsplash.com/photo-1524592094714-0f0654e21ea9?auto=format&fit=crop&q=80&w=800",
+    "description": "Fresh from our designers. The latest arrival in luxury timepieces.",
+    "material": "Platinum"
   }
 ];
 

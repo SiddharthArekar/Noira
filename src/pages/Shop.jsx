@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Heart } from 'lucide-react'
@@ -9,18 +9,30 @@ export default function Shop() {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const initialCategory = queryParams.get('category') || 'All'
+  const initialCollection = queryParams.get('collection') || 'All'
 
   const [activeCategory, setActiveCategory] = useState(initialCategory)
+  const [activeCollection, setActiveCollection] = useState(initialCollection)
   const [sortOption, setSortOption] = useState('Featured')
   const { toggleWishlist, isInWishlist } = useWishlist()
 
+  useEffect(() => {
+    setActiveCategory(queryParams.get('category') || 'All')
+    setActiveCollection(queryParams.get('collection') || 'All')
+  }, [location.search])
+
   const categories = ['All', 'Rings', 'Necklaces', 'Earrings', 'Bracelets', 'Watches']
+  const collectionsList = ['All', 'Glow-in-Motion', 'Shakti-Collection', 'Gemstone-Collection', 'Piercing-Collection', 'DIVA-Collection', 'Cherry-Pop-Collection', 'Sky-High', 'Stackable-Collection', 'Just-Arrived']
 
   const filteredProducts = useMemo(() => {
     let filtered = products
 
     if (activeCategory !== 'All') {
       filtered = filtered.filter(p => p.category === activeCategory)
+    }
+
+    if (activeCollection !== 'All') {
+      filtered = filtered.filter(p => p.collection === activeCollection)
     }
 
     switch (sortOption) {
@@ -44,7 +56,9 @@ export default function Shop() {
       {/* Header Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center pt-8">
         <h1 className="text-4xl md:text-5xl font-serif text-dark-900 dark:text-white mb-6">
-          {activeCategory === 'All' ? 'Our Collection' : activeCategory}
+          {activeCollection !== 'All' 
+            ? activeCollection.replace(/-/g, ' ') 
+            : activeCategory === 'All' ? 'Our Collection' : activeCategory}
         </h1>
         <p className="max-w-2xl mx-auto text-gray-600 dark:text-gray-400 font-light">
           Explore our meticulously crafted jewelry, designed to illuminate your everyday glow.
@@ -63,7 +77,7 @@ export default function Shop() {
               {categories.map(category => (
                 <li key={category}>
                   <button
-                    onClick={() => setActiveCategory(category)}
+                    onClick={() => { setActiveCategory(category); setActiveCollection('All'); }}
                     className={`text-sm tracking-wide transition-colors ${
                       activeCategory === category 
                         ? 'text-gold-600 dark:text-gold-400 font-medium' 
@@ -71,6 +85,26 @@ export default function Shop() {
                     }`}
                   >
                     {category}
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="text-sm font-semibold uppercase tracking-widest mb-6 border-b border-gold-200 dark:border-dark-800 pb-4 mt-12 text-dark-900 dark:text-white">
+              Collections
+            </h3>
+            <ul className="space-y-4 max-h-64 overflow-y-auto pr-2">
+              {collectionsList.map(collection => (
+                <li key={collection}>
+                  <button
+                    onClick={() => { setActiveCollection(collection); setActiveCategory('All'); }}
+                    className={`text-sm tracking-wide transition-colors text-left w-full ${
+                      activeCollection === collection 
+                        ? 'text-gold-600 dark:text-gold-400 font-medium' 
+                        : 'text-gray-600 dark:text-gray-400 hover:text-dark-900 dark:hover:text-gold-200'
+                    }`}
+                  >
+                    {collection.replace(/-/g, ' ')}
                   </button>
                 </li>
               ))}

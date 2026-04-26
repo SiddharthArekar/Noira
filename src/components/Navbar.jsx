@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
-import { ShoppingBag, Menu, X, User, Sun, Moon, Heart } from 'lucide-react'
+import { ShoppingBag, Menu, X, User, Heart, ChevronDown } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { useWishlist } from '../context/WishlistContext'
 import SearchBar from './SearchBar'
@@ -9,7 +9,6 @@ import SearchBar from './SearchBar'
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isDark, setIsDark] = useState(false)
   const { cartCount } = useCart()
   const { wishlistCount } = useWishlist()
   const location = useLocation()
@@ -19,29 +18,27 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 20)
     }
     window.addEventListener('scroll', handleScroll)
-    
-    // Check initial theme
-    setIsDark(document.documentElement.classList.contains('dark'))
-    
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const toggleTheme = () => {
-    if (isDark) {
-      document.documentElement.classList.remove('dark')
-      localStorage.theme = 'light'
-      setIsDark(false)
-    } else {
-      document.documentElement.classList.add('dark')
-      localStorage.theme = 'dark'
-      setIsDark(true)
-    }
-  }
 
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Shop', path: '/shop' },
-    { name: 'Collections', path: '/shop?category=Collections' },
+    { 
+      name: 'Exclusive Collections', 
+      path: '#', 
+      subLinks: [
+        { name: 'Glow in Motion', path: '/shop?collection=Glow-in-Motion' },
+        { name: 'Shakti Collection', path: '/shop?collection=Shakti-Collection' },
+        { name: 'Gemstone Collection', path: '/shop?collection=Gemstone-Collection' },
+        { name: 'Piercing Collection', path: '/shop?collection=Piercing-Collection' },
+        { name: 'DIVA Collection', path: '/shop?collection=DIVA-Collection' },
+        { name: 'Cherry Pop Collection', path: '/shop?collection=Cherry-Pop-Collection' },
+        { name: 'Sky High', path: '/shop?collection=Sky-High' },
+        { name: 'Stackable Collection', path: '/shop?collection=Stackable-Collection' },
+        { name: 'Just Arrived', path: '/shop?collection=Just-Arrived' },
+      ]
+    },
     { name: 'About', path: '/about' },
   ]
 
@@ -67,20 +64,38 @@ export default function Navbar() {
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center space-x-10">
             {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold-500 relative group ${
-                  location.pathname === link.path && !link.path.includes('?')
-                    ? 'text-dark-900 dark:text-white' 
-                    : 'text-dark-500 dark:text-gray-400'
-                }`}
-              >
-                {link.name}
-                <span className={`absolute -bottom-2 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full ${
-                  location.pathname === link.path && !link.path.includes('?') ? 'w-full' : ''
-                }`}></span>
-              </Link>
+              <div key={link.name} className="relative group">
+                <Link
+                  to={link.path}
+                  className={`flex items-center text-[11px] font-bold uppercase tracking-[0.2em] transition-all hover:text-gold-500 relative group ${
+                    location.pathname === link.path && !link.path.includes('?') && !link.subLinks
+                      ? 'text-dark-900 dark:text-white' 
+                      : 'text-dark-500 dark:text-gray-400'
+                  }`}
+                >
+                  {link.name}
+                  {link.subLinks && <ChevronDown size={14} className="ml-1 opacity-70 group-hover:rotate-180 transition-transform duration-300" />}
+                  <span className={`absolute -bottom-2 left-0 w-0 h-0.5 bg-gold-500 transition-all duration-300 group-hover:w-full ${
+                    location.pathname === link.path && !link.path.includes('?') && !link.subLinks ? 'w-full' : ''
+                  }`}></span>
+                </Link>
+                
+                {link.subLinks && (
+                  <div className="absolute top-full left-0 pt-6 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                    <div className="py-3 bg-white/95 dark:bg-dark-900/95 backdrop-blur-xl border border-black/5 dark:border-white/10 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.2)]">
+                      {link.subLinks.map(sub => (
+                        <Link
+                          key={sub.name}
+                          to={sub.path}
+                          className="block px-6 py-2.5 text-[10px] font-bold uppercase tracking-[0.15em] text-dark-500 dark:text-gray-400 hover:text-gold-500 hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                        >
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
 
@@ -91,14 +106,7 @@ export default function Navbar() {
 
           {/* Icons */}
           <div className="flex items-center space-x-2 sm:space-x-4 text-dark-900 dark:text-white">
-            <button 
-              onClick={toggleTheme} 
-              className="p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all active:scale-90"
-              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-            
+
             <Link to="/auth" className="hidden sm:block p-2.5 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all">
               <User size={18} />
             </Link>
@@ -145,13 +153,33 @@ export default function Navbar() {
               animate={isOpen ? { x: 0, opacity: 1 } : {}}
               transition={{ delay: idx * 0.1 }}
             >
-              <Link
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className="block text-4xl font-display font-black uppercase tracking-tighter text-dark-900 dark:text-white hover:text-gold-500 transition-colors"
-              >
-                {link.name}
-              </Link>
+              {link.subLinks ? (
+                <div className="space-y-4">
+                  <span className="block text-4xl font-display font-black uppercase tracking-tighter text-dark-900 dark:text-white opacity-90">
+                    {link.name}
+                  </span>
+                  <div className="pl-6 space-y-4 border-l-2 border-gold-500/30">
+                    {link.subLinks.map(sub => (
+                      <Link
+                        key={sub.name}
+                        to={sub.path}
+                        onClick={() => setIsOpen(false)}
+                        className="block text-lg font-display font-bold uppercase tracking-tight text-dark-500 dark:text-gray-400 hover:text-gold-500 transition-colors"
+                      >
+                        {sub.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className="block text-4xl font-display font-black uppercase tracking-tighter text-dark-900 dark:text-white hover:text-gold-500 transition-colors"
+                >
+                  {link.name}
+                </Link>
+              )}
             </motion.div>
           ))}
           
