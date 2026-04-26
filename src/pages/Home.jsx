@@ -29,16 +29,16 @@ export default function Home() {
         {/* Abstract Background Elements */}
         <div className="absolute top-1/4 -right-20 w-96 h-96 bg-gold-500/20 rounded-full blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-1/4 -left-20 w-72 h-72 bg-accent-pink/20 rounded-full blur-[100px]"></div>
-        
+
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-          
+
           {/* Content Left */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -52,7 +52,7 @@ export default function Home() {
 
             <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-black text-white leading-[0.85] tracking-tighter mb-8 italic">
               OWN THE <br />
-              <span className="text-transparent stroke-white stroke-1 font-outline-2" style={{ WebkitTextStroke: '1px white' }}>GLOW</span>.
+              <span className="text-transparent stroke-white stroke-1 font-outline-2" style={{ WebkitTextStroke: '1px white' }}>GLOWffff</span>.
             </h1>
 
             <p className="text-lg sm:text-xl text-gray-300 mb-10 max-w-lg leading-relaxed font-light">
@@ -102,7 +102,7 @@ export default function Home() {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              
+
               <div className="absolute bottom-8 left-8">
                 <p className="text-white font-display font-bold text-xl">The Noira Choker</p>
                 <p className="text-gold-400 font-mono text-sm">₹12,499</p>
@@ -110,7 +110,7 @@ export default function Home() {
             </div>
 
             {/* Floating Elements */}
-            <motion.div 
+            <motion.div
               animate={{ y: [0, -20, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="absolute -top-10 -left-10 w-32 h-32 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center justify-center rotate-12"
@@ -118,7 +118,7 @@ export default function Home() {
               <ShoppingBag className="text-gold-500" size={40} />
             </motion.div>
 
-            <motion.div 
+            <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               className="absolute bottom-6 right-6 px-5 py-2.5 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-display font-bold rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.3)] -rotate-3 hover:rotate-0 transition-transform cursor-pointer"
