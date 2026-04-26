@@ -52,7 +52,7 @@ export default function Home() {
 
             <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-black text-white leading-[0.85] tracking-tighter mb-8 italic">
               OWN THE <br />
-              <span className="text-transparent stroke-white stroke-1 font-outline-2" style={{ WebkitTextStroke: '1px white' }}>GLOWffff</span>.
+              <span className="text-transparent stroke-white stroke-1 font-outline-2" style={{ WebkitTextStroke: '1px white' }}>GLOWtrecrw</span>.
             </h1>
 
             <p className="text-lg sm:text-xl text-gray-300 mb-10 max-w-lg leading-relaxed font-light">
