@@ -1,21 +1,25 @@
-name: Deploy to EC2
+#!/bin/bash
 
-on:
-  push:
-    branches:
-      - main
+echo "🚀 Starting deployment..."
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+cd ~/Noira
 
-    steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd ~/Noira
-            ./deploy.sh
+echo "📥 Pulling latest code..."
+git pull origin main
+
+echo "📦 Installing dependencies..."
+npm install
+
+echo "🏗️ Building project..."
+npm run build
+
+echo "🧹 Cleaning old files..."
+sudo rm -rf /var/www/html/*
+
+echo "📁 Copying new build..."
+sudo cp -r dist/* /var/www/html/
+
+echo "🔁 Restarting Nginx..."
+sudo systemctl restart nginx
+
+echo "✅ Deployment completed!"
